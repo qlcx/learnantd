@@ -5,6 +5,8 @@
   "plugins": [
     "react-hot-loader/babel",
     "dynamic-import-webpack",
+    // babel-preset-env 对象解构会报错，需要要添加此插件
+    "transform-object-rest-spread",
     ["import", {
       "libraryName": "antd",
       "style": "css"

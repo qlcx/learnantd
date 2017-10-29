@@ -1,5 +1,5 @@
 import omit from './omit'
 
-export default {
+export {
   omit
 }

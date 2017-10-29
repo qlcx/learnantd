@@ -24,7 +24,7 @@ function insertSpace(child, needInserted) {
   }
 
   if (typeof child === 'string') {
-    if (isTwoChar(child) {
+    if (isTwoCNChar(child)) {
       child = child.split('').join(SPACE)
     }
 
@@ -34,12 +34,6 @@ function insertSpace(child, needInserted) {
 
 export default class Button extends Component {
   static Group
-  static __ANT_BUTTON = true
-  static defaultProps = {
-    prefixCls: 'ant-btn',
-    loading: false,
-    ghost: false,
-  }
 
   constructor(props) {
     super(props)
@@ -72,7 +66,7 @@ export default class Button extends Component {
     }
   }
 
-  handleClick = e => {
+  handleClick(e) {
     this.setState({ clicked: true })
     clearTimeout(this.timeout)
     this.timeout = setTimeout(() => this.setState({ clicked: false }), 500)
@@ -125,4 +119,10 @@ export default class Button extends Component {
       {iconNode}{kids}
     </button>
   }
+}
+
+Button.defaultProps = {
+  prefixCls: 'ant-btn',
+  loading: false,
+  ghost: false,
 }

@@ -1,6 +1,6 @@
-export default function omit(obj, field) {
+export default function omit(obj, fields) {
   const shallowCopy = { ...obj }
-  for (let i = 0; i < field.length; i++) {
+  for (let i = 0; i < fields.length; i++) {
     const key = fields[i]
     delete shallowCopy[key]
   }
