@@ -6,22 +6,35 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const paths = require('./paths')
 const webpackBaseConfig = require('./webpack.config.base')
 
+const commonExtractCss = new ExtractTextPlugin('styles.common.css')
+const venderExtractCss = new ExtractTextPlugin('styles.antd.css')
+
 const config = webpackMerge(webpackBaseConfig, {
   entry: {
-    vendor: ['react', 'react-dom', 'react-router', 'react-router-dom']
+    vendor: ['react', 'react-dom', 'react-router', 'react-router-dom', 'antd']
   },
   module: {
     rules: [{
-      test: /.css$/,
+      test: /\.css$/,
+      include: path.resolve(paths.appSrc, '../node_modules/antd'),
+      use: venderExtractCss.extract({
+        fallback: 'style-loader',
+        use: [{
+          loader: 'css-loader',
+          options: { minimize: true }
+        }]
+      })
+    },{
+      test: /\.css$/,
       include: path.resolve(paths.appSrc, './styles'),
-      use: ExtractTextPlugin.extract({
+      use: commonExtractCss.extract({
         fallback: 'style-loader',
         use: 'css-loader'
       })
     },{
-      test: /.(css|scss)$/,
+      test: /\.scss$/,
       exclude: path.resolve(paths.appSrc, './styles'),
-      use: ExtractTextPlugin.extract({
+      use: commonExtractCss.extract({
         fallback: 'style-loader',
         use: [
           'css-loader?modules&localIdentName=[name]__[local]',
@@ -31,6 +44,8 @@ const config = webpackMerge(webpackBaseConfig, {
     }]
   },
   plugins: [
+    venderExtractCss,
+    commonExtractCss,
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
     }),
@@ -61,8 +76,7 @@ const config = webpackMerge(webpackBaseConfig, {
       name: 'manifest',
       filename: '[name].[chunkhash].js',
       minChunks: ['vendor']
-    }),
-    new ExtractTextPlugin('styles.css')
+    })
   ]
 })
 

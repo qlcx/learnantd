@@ -17,11 +17,15 @@ const config = webpackMerge(webpackBaseConfig, {
   devtool: 'source-map',
   module: {
     rules: [{
-      test: /.css$/,
+      test: /\.css$/,
+      include: /node_modules/,
+      use: [ 'style-loader', 'css-loader']
+    },{
+      test: /\.css$/,
       include: path.resolve(paths.appSrc, './styles'),
       use: [ 'style-loader', 'css-loader']
     },{
-      test: /.(css|scss)$/,
+      test: /\.scss$/,
       exclude: path.resolve(paths.appSrc, './styles'),
       use: [
         'style-loader',
@@ -40,7 +44,7 @@ const config = webpackMerge(webpackBaseConfig, {
     new webpack.HotModuleReplacementPlugin(),
     // 当开启HMR时使用NamedModulesPlugin可以显示模块的相对路径
     new webpack.NamedModulesPlugin(),
-    new OpenBrowserPlugin({ url: `http://${hostname}:${port}`})
+    new OpenBrowserPlugin({ url: `http://${hostname}:${port}` })
   ]
 })
 
