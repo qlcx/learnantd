@@ -4,8 +4,11 @@ import { Icon } from 'antd'
 import { omit } from '../../utils'
 import Group from './button-group'
 
+// \u4e00 \u9fa5是Unicode表中汉字的头和尾
+// 匹配两个汉字
 const rxTwoCNChar = /^[\u4e00-\u9fa5]{2}$/
 const isTwoCNChar = rxTwoCNChar.test.bind(rxTwoCNChar)
+
 function isString(str) {
   return typeof str === 'string'
 }
@@ -115,7 +118,7 @@ export default class Button extends Component {
       {...omit(others, ['loading'])} 
       type={htmlType | 'button'} 
       className={classes} 
-      onClick={this.handleClick}>
+      onClick={this.handleClick.bind(this)}>
       {iconNode}{kids}
     </button>
   }
