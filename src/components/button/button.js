@@ -19,13 +19,17 @@ function insertSpace(child, needInserted) {
   }
 
   const SPACE = needInserted ? ' ' : ''
+  // 如果子组件不是字符串或者数字类型，并且子组件的html标签是string，子组件的子组件是两个汉字
   if (typeof child !== 'string' && 
     typeof child !== 'number' && 
     isString(child.type) && 
     isTwoCNChar(child.props.children)) {
+    // React.cloneElement(element, [props], [...children]) =>
+    // <element.type {...element.props} {...props}>{children}</element.type>
     return React.cloneElement(child, {}, child.props.children.splite('').join(SPACE))
   }
 
+  // 如果子组件为string类型且是两个汉字，则在两个汉字间插入空格
   if (typeof child === 'string') {
     if (isTwoCNChar(child)) {
       child = child.split('').join(SPACE)
@@ -55,6 +59,7 @@ export default class Button extends Component {
     }
 
     if (typeof loading !== 'boolean' && loading && loading.delay) {
+      // 设置loading延迟时间
       this.delayTimeout = setTimeout(() => this.setState({ loading }), loading.delay)
     } else {
       this.setState({ loading })
@@ -111,12 +116,17 @@ export default class Button extends Component {
 
     const iconType = loading ? 'loading' : icon
     const iconNode = iconType ? <Icon type={iconType} /> : null
+    // React.Children.count(children) 返回子组件的个数
+    // 如果只有一个子组件并且iconType未定义或者为loading则插入空格
     const needInserted = React.Children.count(children) === 1 && (!iconType || iconType === 'loading')
+    // 对每个child执行function并返回一个数组，如果children是null或undefined则返回null或undefined，
+    // 若子组件（或孙子组件）中有两个汉字，则插入空格
     const kids = React.Children.map(children, child => insertSpace(child, needInserted))
 
     return <button 
+      // 删除others中loading对象
       {...omit(others, ['loading'])} 
-      type={htmlType | 'button'} 
+      type={htmlType || 'button'} 
       className={classes} 
       onClick={this.handleClick.bind(this)}>
       {iconNode}{kids}
@@ -127,5 +137,6 @@ export default class Button extends Component {
 Button.defaultProps = {
   prefixCls: 'ant-btn',
   loading: false,
+  // 幽灵属性，使按键透明
   ghost: false,
 }
