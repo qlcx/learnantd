@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
-import { Button } from 'antd'
-import { Button as Btn } from '../components/button'
+import 'antd/lib/button/style/css'
+import 'antd/lib/icon/style/css'
+import { 
+  Button as Btn,
+  Icon,
+} from '../components/antd'
 
 import styles from './Home.scss'
 
@@ -11,9 +15,8 @@ export default class Home extends Component {
 
   render() {
     return <div>
-      <Button type='primary' size='large'>Button</Button>
       <Btn type='primary' size='large' onClick={this.btnClickEvent}>
-        Btn
+        <Icon type='up' />Btn
       </Btn>
     </div>
   }
