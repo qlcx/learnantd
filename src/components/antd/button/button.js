@@ -43,8 +43,6 @@ function insertSpace(child, needInserted) {
 }
 
 export default class Button extends Component {
-  static Group;
-
   constructor(props) {
     super(props);
     this.state = {
@@ -160,3 +158,6 @@ Button.propTypes = {
   className: PropTypes.string,
   ghost: PropTypes.bool
 }
+
+Button.Group;
+Button.__ANT_BUTTON = true;

@@ -4,14 +4,22 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "test": "jest",
     "clean": "rm -fr dist *.log .DS_Store",
     "webpack-dev": "NODE_ENV=development webpack-dev-server --config config/webpack.config.dev.js --progress",
     "webpack-prod": "NODE_ENV=production webpack --config config/webpack.config.prod.js --progress",
     "build": "yarn run clean && yarn run webpack-prod",
     "start": "yarn run clean && yarn run webpack-dev"
   },
+  "jest": {
+    "setupFiles": ["./.shim.js"],
+    "transform": {
+      "^.+\\.js?$": "babel-jest"
+    }
+  },
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-jest": "^21.2.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-dynamic-import-webpack": "^1.0.1",
     "babel-plugin-import": "^1.6.2",
