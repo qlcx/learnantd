@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 import { render, mount } from 'enzyme';
 
 import { Button } from '..';
 import Icon from '../../icon';
-
-Enzyme.configure({ adapter: new Adapter() });
-
 
 // render 用于将React组件渲染成静态HTML并分析HTML节
 // mount (Full Rendering) 测试组件完整的声明周期
