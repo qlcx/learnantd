@@ -12,7 +12,9 @@
     "start": "yarn run clean && yarn run webpack-dev"
   },
   "jest": {
-    "setupFiles": ["./.shim.js"],
+    "setupFiles": [
+      "./.shim.js"
+    ],
     "transform": {
       "^.+\\.js?$": "babel-jest"
     }
@@ -47,10 +49,12 @@
   "dependencies": {
     "antd": "^2.13.7",
     "classnames": "^2.2.5",
+    "lodash.debounce": "^4.0.8",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-hot-loader": "^3.1.1",
     "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "react-slick": "^0.15.4"
   }
 }
